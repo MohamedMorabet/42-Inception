@@ -16,7 +16,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL \
-        https://raw.githubusercontent.com/wp-cli/wp-cli/v2.12.0/phar/wp-cli.phar \
+        https://github.com/wp-cli/wp-cli/releases/download/v2.12.0/wp-cli-2.12.0.phar \
         -o /usr/local/bin/wp \
     && chmod +x /usr/local/bin/wp \
     && wp --allow-root --info
