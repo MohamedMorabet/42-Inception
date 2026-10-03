@@ -1,0 +1,33 @@
+services:
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb:inception
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?MYSQL_DATABASE is missing}
+      MYSQL_USER: ${MYSQL_USER:?MYSQL_USER is missing}
+    secrets:
+      - db_password
+      - db_root_password
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - inception
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mel-mora/data/mariadb
+
+networks:
+  inception:
+    driver: bridge
