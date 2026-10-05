@@ -76,6 +76,20 @@ if ! wp user get "$WP_USER" --allow-root >/dev/null 2>&1; then
         --user_pass="$user_password"
 fi
 
+echo "Configuring WordPress Redis cache..."
+
+wp config set WP_REDIS_HOST redis --allow-root
+wp config set WP_REDIS_PORT 6379 --raw --allow-root
+wp config set WP_REDIS_CLIENT phpredis --allow-root
+wp config set WP_REDIS_PREFIX "${DOMAIN_NAME}:" --allow-root
+
+if ! wp plugin is-installed redis-cache --allow-root; then
+    wp plugin install redis-cache --allow-root
+fi
+
+wp plugin activate redis-cache --allow-root
+wp redis enable --allow-root
+
 chown -R www-data:www-data /var/www/html
 chmod 640 /var/www/html/wp-config.php
 

@@ -31,7 +31,10 @@ services:
     image: wordpress:inception
     restart: unless-stopped
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_started
+      redis:
+        condition: service_healthy
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:?MYSQL_DATABASE is missing}
       MYSQL_USER: ${MYSQL_USER:?MYSQL_USER is missing}
