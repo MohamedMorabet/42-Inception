@@ -60,6 +60,7 @@ services:
     depends_on:
       - wordpress
       - static-site
+      - adminer
     ports:
       - "443:443"
     volumes:
@@ -90,6 +91,15 @@ services:
     build: ./requirements/bonus/static-site
     image: static-site:inception
     restart: unless-stopped
+    networks:
+      - inception
+
+  adminer:
+    build: ./requirements/bonus/adminer
+    image: adminer:inception
+    restart: unless-stopped
+    depends_on:
+      - mariadb
     networks:
       - inception
 
