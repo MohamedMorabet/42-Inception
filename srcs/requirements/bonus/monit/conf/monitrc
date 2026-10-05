@@ -1,0 +1,34 @@
+set daemon 10
+set logfile /dev/stdout
+set pidfile /run/monit.pid
+set statefile /var/lib/monit/state
+
+set httpd port 2812
+    use address 0.0.0.0
+    include /etc/monit/dashboard-auth
+
+check host nginx_https with address "nginx"
+    if failed port 443 protocol https
+        with ssl options {verify: disable}
+        then alert
+
+check host mariadb_tcp with address "mariadb"
+    if failed port 3306 then alert
+
+check host wordpress_fpm_tcp with address "wordpress"
+    if failed port 9000 then alert
+
+check host redis_cache with address "redis"
+    if failed port 6379
+        send "PING\0x0d\0x0a"
+        expect "PONG"
+        then alert
+
+check host ftp_server with address "ftp"
+    if failed port 21 protocol ftp then alert
+
+check host static_website with address "static-site"
+    if failed port 8080 protocol http request "/" then alert
+
+check host adminer_web with address "adminer"
+    if failed port 8080 protocol http request "/" then alert

@@ -61,8 +61,10 @@ services:
       - wordpress
       - static-site
       - adminer
+      - monit
     ports:
       - "443:443"
+      - "8443:8443"
     volumes:
       - wordpress_data:/var/www/html:ro
     networks:
@@ -103,6 +105,15 @@ services:
     networks:
       - inception
 
+  monit:
+    build: ./requirements/bonus/monit
+    image: monit:inception
+    restart: unless-stopped
+    secrets:
+      - monitor_password
+    networks:
+      - inception
+
 secrets:
   db_password:
     file: ../secrets/db_password.txt
@@ -114,6 +125,8 @@ secrets:
     file: ../secrets/wp_user_password.txt
   ftp_password:
     file: ../secrets/ftp_password.txt
+  monitor_password:
+    file: ../secrets/monitor_password.txt
 
 volumes:
   mariadb_data:
