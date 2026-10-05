@@ -59,6 +59,7 @@ services:
     restart: unless-stopped
     depends_on:
       - wordpress
+      - static-site
     ports:
       - "443:443"
     volumes:
@@ -82,6 +83,13 @@ services:
       - "21100-21110:21100-21110"
     volumes:
       - wordpress_data:/var/www/html
+    networks:
+      - inception
+  
+  static-site:
+    build: ./requirements/bonus/static-site
+    image: static-site:inception
+    restart: unless-stopped
     networks:
       - inception
 
