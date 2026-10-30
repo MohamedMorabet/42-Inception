@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by mel-mora.*
+# I N C E P T I O N
 
 <p align="center">
   <img src="assets/banner.png"
@@ -8,7 +8,7 @@
 
 <div align="center">
 
-# I N C E P T I O N
+
 
 **Behind one website, a small infrastructure.**
 
