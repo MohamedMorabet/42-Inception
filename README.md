@@ -1,5 +1,11 @@
 *This project has been created as part of the 42 curriculum by mel-mora.*
 
+<p align="center">
+  <img src="assets/banner.png"
+       alt="Project Banner"
+       width="100%">
+</p>
+
 <div align="center">
 
 # I N C E P T I O N
