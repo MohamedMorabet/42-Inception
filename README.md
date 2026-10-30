@@ -1,4 +1,3 @@
-# I N C E P T I O N
 
 <p align="center">
   <img src="assets/banner.png"
